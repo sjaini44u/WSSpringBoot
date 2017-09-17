@@ -11,31 +11,32 @@ import java.util.Map;
 /**
  * Created with IntelliJ IDEA.
  * User: Saurabh Maina
- * Date: 13/9/17
- * Time: 12:46 AM
+ * Date: 17/9/17
+ * Time: 2:02 PM
  * To change this template use File | Settings | File Templates.
  */
+
 @Controller
-public class CafeSocketHandler extends TextWebSocketHandler {
+public class CafeClientSocketHandler extends TextWebSocketHandler{
 
     org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(this.getClass().getName());
 
-    Map<String, WebSocketSession> cafeAdminMap = new HashMap<String, WebSocketSession>();
+    Map<String, WebSocketSession>  clientSessionMap = new HashMap<String, WebSocketSession>();
 
     @Override
     protected void handleTextMessage(org.springframework.web.socket.WebSocketSession session, TextMessage message) {
         logger.info("Message received");
         try{
-            session.sendMessage(message);
+                 session.sendMessage(message);
         }
         catch (Exception e){
-            logger.error("Message received");
+
         }
     }
 
     @Override
     public void afterConnectionEstablished(org.springframework.web.socket.WebSocketSession session) throws java.lang.Exception{
         logger.info("Session Connected");
-        cafeAdminMap.put(session.getId(), session);
+        clientSessionMap.put(session.getId(), session);
     }
 }

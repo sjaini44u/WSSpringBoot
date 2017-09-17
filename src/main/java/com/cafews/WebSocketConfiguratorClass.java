@@ -22,10 +22,15 @@ public class WebSocketConfiguratorClass implements WebSocketConfigurer {
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
         registry.addHandler(webSocketHandler(), "/cafeSocket/");
+        registry.addHandler(clientSocketHandler(), "/cafeClient");
     }
 
     @Bean
     public WebSocketHandler webSocketHandler(){
         return new CafeSocketHandler();
+    }
+    @Bean
+    public WebSocketHandler clientSocketHandler(){
+        return new CafeClientSocketHandler();
     }
 }
